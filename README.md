@@ -55,8 +55,9 @@ This project is part of a research study titled:
 This project is licensed under the [MIT License](LICENSE).
 
 ## Author
-- [Your Name]
-- [GitHub Profile or Contact Information] (optional)
+- Rajib Hasan
+- RajibHasan.MTE@gmail.com
+- https://www.facebook.com/profile.php?id=61567529379706
 
 ## Citation
 If you reference or use this project, please cite:
