@@ -85,28 +85,33 @@ void Task_DisplayValues(void *pvParameters) {
     if (xSemaphoreTake(xMutex, portMAX_DELAY)) {
       tft.setTextSize(1);
       tft.setTextColor(ST77XX_WHITE, ST77XX_BLACK); // Background prevents blinking
-
+      tft.setCursor(GRID_WIDTH + 3, 8);
+      tft.print("Thermal:");
       // Only update if value changed
       if (prevMax != maxTemp) {
-        tft.setCursor(GRID_WIDTH + 3, 10);
+        tft.setCursor(GRID_WIDTH + 3, 10+10);
         tft.print("Max:"); tft.print(maxTemp, 1);
+        //tft.print("Max:"); tft.print(0.00, 1);
         prevMax = maxTemp;
       }
 
       if (prevMin != minTemp) {
-        tft.setCursor(GRID_WIDTH + 3, 20);
+        tft.setCursor(GRID_WIDTH + 3, 20+10);
         tft.print("Min:"); tft.print(minTemp, 1);
+        //tft.print("Min:"); tft.print(0.00, 1);
+
         prevMin = minTemp;
       }
 
       if (prevAvg != avgTemp) {
-        tft.setCursor(GRID_WIDTH + 3, 30);
+        tft.setCursor(GRID_WIDTH + 3, 30+10);
         tft.print("Avg:"); tft.print(avgTemp, 1);
+        //tft.print("Avg:"); tft.print(0.00, 1);
         prevAvg = avgTemp;
       }
 
       if(prevTemp2 != temp2){
-        tft.setCursor(GRID_WIDTH + 3, 45);
+        tft.setCursor(GRID_WIDTH + 3, 45+15);
         tft.print("T:"); tft.print(temp2);
         //tft.write(0xB0);
         if(humidity < 10) tft.print(" ");
@@ -114,14 +119,14 @@ void Task_DisplayValues(void *pvParameters) {
       }
 
       if (prevHumidity != humidity) {
-        tft.setCursor(GRID_WIDTH + 3, 55);
+        tft.setCursor(GRID_WIDTH + 3, 55+15);
         tft.print("Humi:"); tft.print(humidity); tft.print("% ");
         if(humidity < 10) tft.print(" ");
         prevHumidity = humidity;
       }
 
       if (prevAlcho != alcho) {
-        tft.setCursor(GRID_WIDTH + 3, 65);
+        tft.setCursor(GRID_WIDTH + 3, 65+15);
         tft.print("Alcho:"); tft.print(alcho);
         tft.print("%");
         if(alcho < 10) tft.print(" ");
