@@ -1,3 +1,8 @@
+/*************
+Rajib Hasan
+
+*************/
+
 #include <Wire.h>
 #include "MAX30100_PulseOximeter.h"
 #include <Adafruit_GFX.h>
