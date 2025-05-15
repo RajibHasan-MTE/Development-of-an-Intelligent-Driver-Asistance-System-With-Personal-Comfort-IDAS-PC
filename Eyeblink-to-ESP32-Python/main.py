@@ -4,7 +4,7 @@ from scipy.spatial import distance
 import serial
 import time
 
-# i am 
+# now i am from laptop
 # Function to calculate Eye Aspect Ratio (EAR)
 def calculate_ear(eye):
     A = distance.euclidean(eye[1], eye[5])
