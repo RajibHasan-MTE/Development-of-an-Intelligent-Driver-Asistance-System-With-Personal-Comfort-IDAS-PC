@@ -4,6 +4,7 @@
 #include <Adafruit_ST7735.h>
 #include <DHT.h>
 
+#define BUZZER 33
 #define DHTPIN 32  
 #define ALCHO_PIN 34
 #define DHTTYPE DHT11   
@@ -176,6 +177,20 @@ void setup() {
   dht.begin();
   pinMode(ALCHO_PIN, INPUT);
   pinMode(FAN, OUTPUT);
+  pinMode(BUZZER, OUTPUT);
+  digitalWrite(BUZZER, HIGH);
+  delay(500);
+  digitalWrite(BUZZER, LOW);
+  delay(1000);
+  digitalWrite(BUZZER, HIGH);
+  delay(500);
+  digitalWrite(BUZZER, LOW);
+  delay(1000);
+  digitalWrite(BUZZER, HIGH);
+  delay(500);
+  digitalWrite(BUZZER, LOW);
+  delay(1000);
+
   digitalWrite(FAN, LOW);
 
   
