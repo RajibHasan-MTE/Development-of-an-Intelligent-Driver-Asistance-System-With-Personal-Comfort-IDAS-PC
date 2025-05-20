@@ -3,7 +3,14 @@ import dlib
 from scipy.spatial import distance
 import serial
 import time
+import struct
 
+
+# Function to send data to Arduin
+def send_data_to_arduino(blink_counter, is_sleeping):
+    # Pack the data into a structure: 1 integer (blink_counter) and 1 boolean (is_sleeping)
+    data = struct.pack('i?', blink_counter, is_sleeping)
+    arduino.write(data)
 
 # Function to calculate Eye Aspect Ratio (EAR)
 def calculate_ear(eye):
@@ -42,6 +49,8 @@ while True:
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = detector(gray)
 
+    is_sleeping = False
+
     if len(faces) == 0:
         # No face detected
         cv2.putText(frame, "Eye Not Detected", (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
@@ -75,18 +84,20 @@ while True:
             else:
                 if frame_counter >= EYE_AR_CONSEC_FRAMES:
                     blink_counter += 1
-                    # Send blink count to Arduino
-                    arduino.write(f"{blink_counter}\n".encode())
                 frame_counter = 0
                 eye_closed_start_time = None
 
             # Check if eyes are closed for more than 5 seconds
             if eye_closed_start_time and (time.time() - eye_closed_start_time >= EYE_CLOSED_TIME_THRESH):
+                is_sleeping = True
                 cv2.putText(frame, "You Are Sleeping", (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 
             # Display EAR and blink count
             cv2.putText(frame, f"EAR: {ear:.2f}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
             cv2.putText(frame, f"Blinks: {blink_counter}", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
+
+    # Send data to Arduino
+    send_data_to_arduino(blink_counter, is_sleeping)
 
     # Show the frame
     cv2.imshow("Eye Blink Counter", frame)
