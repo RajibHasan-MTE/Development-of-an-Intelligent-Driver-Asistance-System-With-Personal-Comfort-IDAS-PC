@@ -24,7 +24,7 @@ frame_counter = 0
 eye_closed_start_time = None
 
 # Initialize serial communication with Arduino
-arduino = serial.Serial('COM6', 9600)  # Replace 'COM6' with your Arduino's COM port
+arduino = serial.Serial('COM5', 9600)  # Replace 'COM6' with your Arduino's COM port
 time.sleep(2)  # Wait for the serial connection to initialize
 
 # Load face detector and facial landmarks predictor
@@ -32,7 +32,7 @@ detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor("Eyeblink-to-ESP32-Python/shape_predictor_68_face_landmarks.dat")
 
 # Start video capture
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 while True:
     ret, frame = cap.read()
