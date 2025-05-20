@@ -5,6 +5,7 @@ import serial
 import time
 
 # now i am rajib
+#def calculate_ear(eye):
 # Function to calculate Eye Aspect Ratio (EAR)
 def calculate_ear(eye):
     A = distance.euclidean(eye[1], eye[5])
