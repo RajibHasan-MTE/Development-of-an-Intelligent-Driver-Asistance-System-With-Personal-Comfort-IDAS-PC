@@ -8,6 +8,8 @@ import time
 # hello i am rajib
 # now i am rajib
 #def calculate_ear(eye):
+# now i am from laptop
+# def calculate_ear
 # Function to calculate Eye Aspect Ratio (EAR)
 def calculate_ear(eye):
     A = distance.euclidean(eye[1], eye[5])
