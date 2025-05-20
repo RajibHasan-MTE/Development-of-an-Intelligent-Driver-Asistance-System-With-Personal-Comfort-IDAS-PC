@@ -4,6 +4,8 @@ from scipy.spatial import distance
 import serial
 import time
 
+
+# hello i am rajib
 # now i am rajib
 #def calculate_ear(eye):
 # Function to calculate Eye Aspect Ratio (EAR)
