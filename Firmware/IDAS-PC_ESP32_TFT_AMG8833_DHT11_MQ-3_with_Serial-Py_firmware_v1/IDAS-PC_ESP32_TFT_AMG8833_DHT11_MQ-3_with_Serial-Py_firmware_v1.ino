@@ -22,6 +22,12 @@ float pixels[AMG88xx_PIXEL_ARRAY_SIZE * AMG88xx_PIXEL_ARRAY_SIZE];
 #define GRID_X      0
 #define GRID_Y      0
 
+struct ReceivedData {
+  int blink_counter;
+  bool is_sleeping;
+};
+
+
 // Shared variables
 int humidity, prevHumidity;
 float temp2=0, prevTemp2=0;
@@ -75,7 +81,13 @@ void Task_DisplayValues(void *pvParameters) {
   while (1) {
     humidity = dht.readHumidity();
     temp2 = dht.readTemperature();
+     if (Serial.available() >= sizeof(ReceivedData)) {
+      ReceivedData data;
+      Serial.readBytes((char*)&data, sizeof(ReceivedData));
+      digitalWrite(BUZZER, data.is_sleeping);
+     }
 
+    
     alcho = map(analogRead(ALCHO_PIN), 800, 4095, 0, 100);
     float maxTemp = getMaxTemp();
     float minTemp = getMinTemp();
@@ -133,6 +145,7 @@ void Task_DisplayValues(void *pvParameters) {
         if(alcho < 10) tft.print(" ");
         prevAlcho = alcho;
       }
+      
 
       xSemaphoreGive(xMutex);
     }
@@ -173,7 +186,7 @@ float getAvgTemp() {
 }
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   dht.begin();
   pinMode(ALCHO_PIN, INPUT);
   pinMode(FAN, OUTPUT);

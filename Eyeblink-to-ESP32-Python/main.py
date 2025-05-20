@@ -30,7 +30,7 @@ blink_counter = 0
 frame_counter = 0
 eye_closed_start_time = None
 
-# Initialize serial communication with Arduino
+# Initialize serial communication with Arduinoq
 arduino = serial.Serial('COM5', 9600)  # Replace 'COM6' with your Arduino's COM port
 time.sleep(2)  # Wait for the serial connection to initialize
 
